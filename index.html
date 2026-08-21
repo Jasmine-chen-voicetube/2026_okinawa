@@ -381,22 +381,24 @@
       z-index: 1000;
       display: none;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
       align-items: flex-end;
     }
     #cat-fab.visible { display: flex; }
     .cat-pill {
-      background: rgba(26,26,46,0.82);
-      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(12px) saturate(1.4);
+      -webkit-backdrop-filter: blur(12px) saturate(1.4);
       color: white;
       font-size: 14px;
       font-weight: 600;
-      padding: 7px 12px;
+      padding: 9px 16px;
       border-radius: 20px;
       cursor: pointer;
       white-space: nowrap;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      border: none;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
     }
     .cat-pill:active { opacity: 0.75; }
   </style>
