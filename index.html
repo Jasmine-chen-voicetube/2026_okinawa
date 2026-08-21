@@ -970,7 +970,7 @@
 <nav class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('overview', this)">
     <span class="icon">📋</span>
-    <span class="label">行程一覽</span>
+    <span class="label">行程</span>
   </button>
   <button class="tab-btn" onclick="switchTab('snorkel', this)">
     <span class="icon">🤿</span>
@@ -988,6 +988,10 @@
     <span class="icon">🏨</span>
     <span class="label">分房表</span>
   </button>
+  <button class="tab-btn" onclick="switchTab('souvenirs', this)">
+    <span class="icon">🎁</span>
+    <span class="label">伴手禮</span>
+  </button>
 </nav>
 
 <script>
@@ -999,6 +1003,71 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
+
+
+<!-- ════════════════════════════════
+     TAB 6: 伴手禮
+════════════════════════════════ -->
+<div id="page-souvenirs" class="tab-page">
+  <div class="hero" style="background: linear-gradient(160deg,#f77f00,#fcbf49,#ffd166)">
+    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.15)"></div>
+    <div style="position:relative;z-index:1">
+      <div class="hero-emoji">🎁</div>
+      <h1>伴手禮推薦</h1>
+      <div class="sub">沖繩必買清單</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sec-title">🍠 食品類</div>
+    <div class="card">
+      <div class="tl-name" style="margin-bottom:6px">紅芋塔（紅芋タルト）</div>
+      <div class="tl-note">御菓子御殿招牌，香甜綿密，是沖繩最具代表性的伴手禮，常溫保存。</div>
+    </div>
+    <div class="card">
+      <div class="tl-name" style="margin-bottom:6px">Orion 啤酒 / 泡盛</div>
+      <div class="tl-note">沖繩在地啤酒，也可帶泡盛（琉球燒酒）。超市、便利商店均有售。</div>
+    </div>
+    <div class="card">
+      <div class="tl-name" style="margin-bottom:6px">雪鹽餅乾 / 雪鹽冰淇淋</div>
+      <div class="tl-note">宮古島雪鹽製成，鹹甜風味獨特，餅乾方便攜帶。</div>
+    </div>
+    <div class="card">
+      <div class="tl-name" style="margin-bottom:6px">ちんすこう（金楚糕）</div>
+      <div class="tl-note">沖繩傳統點心，酥脆甜口，口味多樣，份量大適合分送同事。</div>
+    </div>
+
+    <div class="sec-title">🧴 藥妝 / 生活</div>
+    <div class="card">
+      <div class="tl-name" style="margin-bottom:6px">海鹽護膚品</div>
+      <div class="tl-note">沖繩海鹽系列護手霜、肥皂，包裝精緻，適合送禮。</div>
+    </div>
+    <div class="card">
+      <div class="tl-name" style="margin-bottom:6px">防曬乳（藥妝店）</div>
+      <div class="tl-note">日本品牌防曬較台灣便宜，松本清、AINZ 均有販售。</div>
+    </div>
+
+    <div class="sec-title">🦁 紀念品</div>
+    <div class="card">
+      <div class="tl-name" style="margin-bottom:6px">シーサー（獅子）擺飾</div>
+      <div class="tl-note">沖繩守護神，大小款式多元，國際通紀念品店均有售。</div>
+    </div>
+    <div class="card">
+      <div class="tl-name" style="margin-bottom:6px">琉球玻璃</div>
+      <div class="tl-note">手工製作的彩色玻璃杯，色彩鮮豔，需注意攜帶時的包裝保護。</div>
+    </div>
+
+    <div class="sec-title">🛒 哪裡買</div>
+    <div class="card">
+      <ul class="remind-list">
+        <li><strong>國際通</strong> — 伴手禮店集中，DFS、御菓子御殿旗艦店均在此</li>
+        <li><strong>御菓子御殿（一日遊途中）</strong> — 紅芋塔最便宜，建議在此大量採購</li>
+        <li><strong>美國村</strong> — 雜貨、服飾、限定商品</li>
+        <li><strong>那霸機場免稅區</strong> — 出境前最後補貨，泡盛、酒類選擇多</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
