@@ -155,6 +155,8 @@
       margin-bottom: 14px;
     }
     .tl-item:last-child { margin-bottom: 0; }
+    #page-tour .tl-item { margin-bottom: 36px; }
+    #page-tour .tl-item:last-child { margin-bottom: 0; }
     .tl-left {
       display: flex;
       flex-direction: column;
@@ -272,7 +274,7 @@
       background: #e8f4fb;
       color: #0077b6;
       border-radius: 6px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       padding: 2px 8px;
     }
@@ -344,6 +346,59 @@
     .guest { font-size: 14px; font-weight: 700; }
     .guest .en { font-size: 12px; color: #999; font-weight: 500; margin-left: 2px; }
     .room-divider { font-size: 14px; color: #ccc; }
+
+    /* ── Lightbox ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 92vw;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+    #lightbox-close {
+      position: absolute;
+      top: 16px; right: 20px;
+      font-size: 32px;
+      color: white;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* ── Category Jump Pills ── */
+    #cat-fab {
+      position: fixed;
+      bottom: 88px;
+      right: 12px;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+    }
+    #cat-fab.visible { display: flex; }
+    .cat-pill {
+      background: rgba(26,26,46,0.82);
+      backdrop-filter: blur(6px);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      border: none;
+    }
+    .cat-pill:active { opacity: 0.75; }
   </style>
 </head>
 <body>
@@ -352,7 +407,7 @@
      TAB 1: 行程一覽
 ════════════════════════════════ -->
 <div id="page-overview" class="tab-page active">
-  <div class="hero" style="background:url('overview-hero.png') center/cover no-repeat;position:relative">
+  <div class="hero" style="background:url('overview-hero.jpg') center/cover no-repeat;position:relative">
     <div style="position:absolute;inset:0;background:rgba(0,0,0,0.38)"></div>
     <div style="position:relative;z-index:1">
       <div class="hero-emoji">🌺</div>
@@ -392,7 +447,7 @@
           <li>✈️ FD230｜13:30 起飛 → 15:55 抵達那霸</li>
           <li>🏨 飯店 Check-in 15:00~
             <div style="margin-top:8px;border-radius:12px;overflow:hidden;border:1px solid #eef2f6">
-              <img src="hotel.png" style="width:100%;height:130px;object-fit:cover;object-position:center;display:block">
+              <img src="hotel.jpg" style="width:100%;height:130px;object-fit:cover;object-position:center;display:block">
               <div style="padding:10px 12px;background:#f7fafd">
                 <div style="font-size:14px;font-weight:700">HOTEL LANTANA 那霸國際街</div>
                 <div style="font-size:14px;color:#888;margin-top:2px">ランタナ那覇国際通り</div>
@@ -420,7 +475,8 @@
           <span class="pill-date">浮潛日</span>
         </div>
         <div class="pill-title">🤿 青之洞窟浮潛</div>
-        <div class="pill-desc">Johnny 開車帶浮潛組到現場，詳細時間待公告</div>
+        <div class="pill-desc">浮潛組自行協調自駕</div>
+        <div class="pill-desc" style="color:#e63946;font-weight:700;margin-top:4px">⏰ 10:45 抵達集合地點</div>
       </div>
     </div>
 
@@ -433,6 +489,7 @@
         </div>
         <div class="pill-title">🚌 沖繩包車一日遊</div>
         <div class="pill-desc">美麗海水族館 → 古宇利島 → 御菓子御殿 → 萬座毛 → 美國村</div>
+        <div class="pill-desc" style="color:#e63946;font-weight:700;margin-top:4px">⏰ 08:30 抵達集合地點</div>
       </div>
     </div>
 
@@ -451,6 +508,94 @@
       </div>
     </div>
   </div>
+
+  <div class="content" style="padding-top:4px">
+    <div class="sec-title">🏨 分房表</div>
+
+    <div class="sec-title" style="margin-top:12px">🛏️ 雙人房</div>
+
+    <div class="room-card">
+      <div class="room-num">1</div>
+      <div class="room-guests">
+        <div class="guest">詹益維 <span class="en">Richard</span></div>
+        <div class="room-divider">＋</div>
+        <div class="guest">李偉平 <span class="en">Cypher</span></div>
+      </div>
+    </div>
+
+    <div class="room-card couple">
+      <div class="room-num">2</div>
+      <div class="room-guests">
+        <div class="guest">余昭慶 <span class="en">Ching</span></div>
+        <div class="room-divider">＋</div>
+        <div class="guest">許芷寧 <span class="en">Ching 伴</span></div>
+      </div>
+    </div>
+
+    <div class="room-card couple">
+      <div class="room-num">3</div>
+      <div class="room-guests">
+        <div class="guest">李官紘 <span class="en">Smith</span></div>
+        <div class="room-divider">＋</div>
+        <div class="guest">葉宜涵 <span class="en">Smith 伴</span></div>
+      </div>
+    </div>
+
+    <div class="room-card couple">
+      <div class="room-num">4</div>
+      <div class="room-guests">
+        <div class="guest">莊婉婷 <span class="en">Shelly</span></div>
+        <div class="room-divider">＋</div>
+        <div class="guest">顏政 <span class="en">Shelly 伴</span></div>
+      </div>
+    </div>
+
+    <div class="room-card couple">
+      <div class="room-num">5</div>
+      <div class="room-guests">
+        <div class="guest">阮氏秋莊 <span class="en">Sunny</span></div>
+        <div class="room-divider">＋</div>
+        <div class="guest">阮蘭芳 <span class="en">Sunny 伴</span></div>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <div class="room-num">6</div>
+      <div class="room-guests">
+        <div class="guest">梁晉誠 <span class="en">Anton</span></div>
+        <div class="room-divider">＋</div>
+        <div class="guest">江書賢 <span class="en">Jeff</span></div>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <div class="room-num">7</div>
+      <div class="room-guests">
+        <div class="guest">神谷菜菜子 <span class="en">Nanako</span></div>
+        <div class="room-divider">＋</div>
+        <div class="guest">許雅晴 <span class="en">Jessica</span></div>
+      </div>
+    </div>
+
+    <div class="room-card couple">
+      <div class="room-num">8</div>
+      <div class="room-guests">
+        <div class="guest">陳芃儒 <span class="en">Jasmine</span></div>
+        <div class="room-divider">＋</div>
+        <div class="guest">謝政宏 <span class="en">Jasmine 伴</span></div>
+      </div>
+    </div>
+
+    <div class="sec-title" style="margin-top:20px">🏠 自己訂</div>
+    <div class="room-card couple">
+      <div class="room-num" style="background:#f77f00">－</div>
+      <div class="room-guests">
+        <div class="guest">蔡豐任 <span class="en">Johnny</span></div>
+        <div class="room-divider">＋</div>
+        <div class="guest">宋慧玲</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -458,7 +603,7 @@
      TAB 2: 浮潛
 ════════════════════════════════ -->
 <div id="page-snorkel" class="tab-page">
-  <div class="hero" style="background: linear-gradient(to bottom, rgba(0,40,80,0.35), rgba(0,20,50,0.6)), url('snorkel-hero.png') center/cover no-repeat;">
+  <div class="hero" style="background: linear-gradient(to bottom, rgba(0,40,80,0.35), rgba(0,20,50,0.6)), url('snorkel-hero.jpg') center/cover no-repeat;">
     <div class="hero-emoji">🤿</div>
     <h1>青之洞窟浮潛</h1>
     <div class="sub">D2 · 9月20日（日）</div>
@@ -493,12 +638,12 @@
 
     <div class="sec-title">🚗 交通方式</div>
     <div class="card">
-      <div class="tl-note" style="font-size:14px;color:#444">Johnny 開車帶浮潛組前往</div>
+      <div class="tl-note" style="font-size:14px;color:#444">浮潛組自行協調自駕</div>
     </div>
 
     <div class="sec-title">📍 集合地點</div>
     <div class="card" style="padding:0;overflow:hidden">
-      <img src="island-club.png" style="width:100%;height:220px;object-fit:cover;object-position:center top;display:block">
+      <img src="island-club.jpg" style="width:100%;height:220px;object-fit:cover;object-position:center top;display:block">
       <div style="padding:14px 16px">
         <div style="font-size:15px;font-weight:800;margin-bottom:2px">Island Club アイランド倶楽部</div>
         <div style="font-size:14px;color:#888;margin-top:4px">〒904-0416 沖縄県国頭郡恩納村山田615-2</div>
@@ -569,7 +714,7 @@
      TAB 3: 一日遊
 ════════════════════════════════ -->
 <div id="page-tour" class="tab-page">
-  <div class="hero" style="background: linear-gradient(to bottom, rgba(0,30,80,0.45), rgba(0,20,60,0.65)), url('bus.png') center/cover no-repeat;">
+  <div class="hero" style="background: linear-gradient(to bottom, rgba(0,30,80,0.45), rgba(0,20,60,0.65)), url('bus.jpg') center/cover no-repeat;">
     <div class="hero-emoji">🚌</div>
     <h1>包車一日遊</h1>
     <div class="sub">D3 · 9月21日（一）</div>
@@ -631,10 +776,10 @@
       <div class="tl-item">
         <div class="tl-left"><div class="tl-dot key"></div><div class="tl-line"></div></div>
         <div class="tl-body">
-          <div class="tl-time">08:45 出發 <span style="color:#e63946;font-weight:700;font-size:12px">請 08:30 抵達集合地點</span></div>
+          <div class="tl-time">08:45 出發 <span style="color:#e63946;font-weight:700;font-size:14px">請 08:30 抵達集合地點</span></div>
           <div class="tl-name">集合 Palette Kumoji</div>
           <div style="margin-top:8px;border-radius:12px;overflow:hidden;border:1px solid #eef2f6">
-            <img src="palette-kumoji.png" style="width:100%;height:180px;object-fit:cover;object-position:center center;display:block">
+            <img src="palette-kumoji.jpg" style="width:100%;height:180px;object-fit:cover;object-position:center center;display:block">
             <div style="padding:10px 12px;background:#f7fafd">
               <div style="font-size:14px;color:#666">ニッポンレンタカー 県庁前 営業所 前面</div>
               <div style="font-size:14px;color:#e63946;font-weight:600;margin-top:3px">在店門口集合，不用進入店面</div>
@@ -647,47 +792,58 @@
         <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
           <div class="tl-name">🐋 沖繩美麗海水族館 <span class="tl-tag" style="vertical-align:middle">⏱ 2小時30分</span></div>
+          <img src="https://res.klook.com/image/upload/fl_lossy.progressive,q_65/w_1080/activities/ucbzzpxea3cqh8hwabvu.jpg" style="width:100%;height:110px;object-fit:cover;border-radius:10px;margin-top:8px;display:block">
+
           <div class="tl-note">世界頂級水族館之一，以巨型黑潮之海水槽聞名，可近距離欣賞鯨鯊與鬼蝠魟悠游。</div>
           <div class="tl-note" style="margin-top:4px">含門票。150分鐘自由活動，午餐請自行解決。</div>
+          <div class="tl-note" style="margin-top:6px;background:#fff8e1;border-radius:8px;padding:8px 10px;color:#795548">⚠️ 館內禮品店<strong>不提供退稅</strong>，有退稅需求請至<strong>那霸國際通直營店</strong>購買。</div>
           <a href="https://bobbytravel.tw/churaumi-aquarium/" target="_blank" style="display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">📖 景點介紹</a>
-          <img src="https://res.klook.com/image/upload/fl_lossy.progressive,q_65/w_1080/activities/ucbzzpxea3cqh8hwabvu.jpg" style="width:100%;height:110px;object-fit:cover;border-radius:10px;margin-top:8px;display:block">
+          
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
           <div class="tl-name">🏖️ 古宇利海灘 <span class="tl-tag" style="vertical-align:middle">⏱ 20分鐘</span></div>
+          <img src="https://res.klook.com/image/upload/fl_lossy.progressive,q_65/w_1080/v1678263435/cs55zlhno2p1tvcucuer.jpg" style="width:100%;height:110px;object-fit:cover;border-radius:10px;margin-top:8px;display:block">
+
           <div class="tl-note">沖繩傳說中的神之島，以夢幻的「古宇利藍」海景聞名。沙灘旁有戀人聖地「心形岩」，可眺望古宇利大橋與清澈海灣。</div>
           <a href="https://bobbytravel.tw/kouri-island/" target="_blank" style="display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">📖 景點介紹</a>
-          <img src="https://res.klook.com/image/upload/fl_lossy.progressive,q_65/w_1080/v1678263435/cs55zlhno2p1tvcucuer.jpg" style="width:100%;height:110px;object-fit:cover;border-radius:10px;margin-top:8px;display:block">
+          
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
           <div class="tl-name">🍠 御菓子御殿（恩納店）<span class="tl-tag" style="vertical-align:middle">⏱ 20分鐘</span></div>
+          <img src="https://res.klook.com/image/upload/fl_lossy.progressive,q_65/w_1080/v1782093628/cv5uvf1evvvktoqlnya2.jpg" style="width:100%;height:110px;object-fit:cover;border-radius:10px;margin-top:8px;display:block">
+
           <div class="tl-note">沖繩最具代表性的伴手禮店，招牌紅芋塔香甜綿密，是帶回台灣的必買首選。可能更改至其他分店。</div>
           <a href="https://tingandkao.com/okashigoten/" target="_blank" style="display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">📖 景點介紹</a>
-          <img src="https://res.klook.com/image/upload/fl_lossy.progressive,q_65/w_1080/v1782093628/cv5uvf1evvvktoqlnya2.jpg" style="width:100%;height:110px;object-fit:cover;border-radius:10px;margin-top:8px;display:block">
+          
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
           <div class="tl-name">🌿 萬座毛 <span class="tl-tag" style="vertical-align:middle">⏱ 20分鐘</span></div>
+          <img src="https://res.klook.com/image/upload/fl_lossy.progressive,q_65/w_1080/activities/k1ox6xmsuddpmxfgegjg.jpg" style="width:100%;height:110px;object-fit:cover;border-radius:10px;margin-top:8px;display:block">
+
           <div class="tl-note">造型如大象鼻子伸入海中的壯觀珊瑚礁斷崖，居高臨下可飽覽湛藍東海海景。</div>
           <div class="tl-note" style="margin-top:4px">門票每人 JPY 100，請自備現金</div>
           <a href="https://bobbytravel.tw/manzamo/" target="_blank" style="display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">📖 景點介紹</a>
-          <img src="https://res.klook.com/image/upload/fl_lossy.progressive,q_65/w_1080/activities/k1ox6xmsuddpmxfgegjg.jpg" style="width:100%;height:110px;object-fit:cover;border-radius:10px;margin-top:8px;display:block">
+          
         </div>
       </div>
       <div class="tl-item">
         <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
         <div class="tl-body">
           <div class="tl-name">🇺🇸 美國村 <span class="tl-tag" style="vertical-align:middle">⏱ 50分鐘</span></div>
+          <img src="https://res.klook.com/image/upload/fl_lossy.progressive,q_65/w_1080/v1781569141/iopslbhihgxfwwzxg7op.jpg" style="width:100%;height:110px;object-fit:cover;border-radius:10px;margin-top:8px;display:block">
+
           <div class="tl-note">充滿美式風情的購物娛樂區，集結餐廳、服飾、雜貨與遊樂設施，是血拼與逛街的好去處。</div>
           <a href="https://bobbytravel.tw/american-village/" target="_blank" style="display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">📖 景點介紹</a>
-          <img src="https://res.klook.com/image/upload/fl_lossy.progressive,q_65/w_1080/v1781569141/iopslbhihgxfwwzxg7op.jpg" style="width:100%;height:110px;object-fit:cover;border-radius:10px;margin-top:8px;display:block">
+          
         </div>
       </div>
       <div class="tl-item">
@@ -786,7 +942,7 @@
 
     <div class="sec-title" style="margin-top:24px">🗾 沖繩景點地圖</div>
     <div class="card" style="padding:0;overflow:hidden">
-      <img src="okinawa-map.png" style="width:100%;display:block">
+      <img src="okinawa-map.jpg" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;display:block">
     </div>
 
     <div class="card" style="margin-top:24px">
@@ -864,107 +1020,6 @@
 
 
 <!-- ════════════════════════════════
-     TAB 4: 分房表
-════════════════════════════════ -->
-<div id="page-rooms" class="tab-page">
-  <div class="hero" style="background:url('images.jpeg') center/cover no-repeat; position:relative">
-    <div style="position:absolute;inset:0;background:rgba(0,0,0,0.35)"></div>
-    <div style="position:relative;z-index:1">
-      <div class="hero-emoji">🏨</div>
-      <h1>分房表</h1>
-      <div class="sub">9/19 — 9/22</div>
-    </div>
-  </div>
-
-  <div class="content">
-    <div class="sec-title">🛏️ 雙人房</div>
-
-    <div class="room-card">
-      <div class="room-num">1</div>
-      <div class="room-guests">
-        <div class="guest">詹益維 <span class="en">Richard</span></div>
-        <div class="room-divider">＋</div>
-        <div class="guest">李偉平 <span class="en">Cypher</span></div>
-      </div>
-    </div>
-
-    <div class="room-card couple">
-      <div class="room-num">2</div>
-      <div class="room-guests">
-        <div class="guest">余昭慶 <span class="en">Ching</span></div>
-        <div class="room-divider">＋</div>
-        <div class="guest">許芷寧 <span class="en">Ching 伴</span></div>
-      </div>
-    </div>
-
-    <div class="room-card couple">
-      <div class="room-num">3</div>
-      <div class="room-guests">
-        <div class="guest">李官紘 <span class="en">Smith</span></div>
-        <div class="room-divider">＋</div>
-        <div class="guest">葉宜涵 <span class="en">Smith 伴</span></div>
-      </div>
-    </div>
-
-    <div class="room-card couple">
-      <div class="room-num">4</div>
-      <div class="room-guests">
-        <div class="guest">莊婉婷 <span class="en">Shelly</span></div>
-        <div class="room-divider">＋</div>
-        <div class="guest">顏政 <span class="en">Shelly 伴</span></div>
-      </div>
-    </div>
-
-    <div class="room-card couple">
-      <div class="room-num">5</div>
-      <div class="room-guests">
-        <div class="guest">阮氏秋莊 <span class="en">Sunny</span></div>
-        <div class="room-divider">＋</div>
-        <div class="guest">阮蘭芳 <span class="en">Sunny 伴</span></div>
-      </div>
-    </div>
-
-    <div class="room-card">
-      <div class="room-num">6</div>
-      <div class="room-guests">
-        <div class="guest">梁晉誠 <span class="en">Anton</span></div>
-        <div class="room-divider">＋</div>
-        <div class="guest">江書賢 <span class="en">Jeff</span></div>
-      </div>
-    </div>
-
-    <div class="room-card">
-      <div class="room-num">7</div>
-      <div class="room-guests">
-        <div class="guest">神谷菜菜子 <span class="en">Nanako</span></div>
-        <div class="room-divider">＋</div>
-        <div class="guest">許雅晴 <span class="en">Jessica</span></div>
-      </div>
-    </div>
-
-    <div class="room-card couple">
-      <div class="room-num">8</div>
-      <div class="room-guests">
-        <div class="guest">陳芃儒 <span class="en">Jasmine</span></div>
-        <div class="room-divider">＋</div>
-        <div class="guest">謝政宏 <span class="en">Jasmine 伴</span></div>
-      </div>
-    </div>
-
-    <div class="sec-title" style="margin-top:20px">🏠 自己訂</div>
-    <div class="room-card couple">
-      <div class="room-num" style="background:#f77f00">－</div>
-      <div class="room-guests">
-        <div class="guest">蔡豐任 <span class="en">Johnny</span></div>
-        <div class="room-divider">＋</div>
-        <div class="guest">宋慧玲</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════
      Bottom Tab Bar
 ════════════════════════════════ -->
 <nav class="tab-bar">
@@ -984,10 +1039,6 @@
     <span class="icon">🗺️</span>
     <span class="label">景點</span>
   </button>
-  <button class="tab-btn" onclick="switchTab('rooms', this)">
-    <span class="icon">🏨</span>
-    <span class="label">分房表</span>
-  </button>
   <button class="tab-btn" onclick="switchTab('souvenirs', this)">
     <span class="icon">🎁</span>
     <span class="label">伴手禮</span>
@@ -995,13 +1046,36 @@
 </nav>
 
 <script>
+
   function switchTab(name, btn) {
     document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
     btn.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    var fab = document.getElementById('cat-fab');
+    if (name === 'souvenirs') { fab.classList.add('visible'); }
+    else { fab.classList.remove('visible'); }
   }
+
+  function jumpTo(id) {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 
 
@@ -1009,64 +1083,270 @@
      TAB 6: 伴手禮
 ════════════════════════════════ -->
 <div id="page-souvenirs" class="tab-page">
-  <div class="hero" style="background: linear-gradient(160deg,#f77f00,#fcbf49,#ffd166)">
+  <div class="hero" style="background:url('https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225147_0_3d2f90.webp') center/cover no-repeat;position:relative">
     <div style="position:absolute;inset:0;background:rgba(0,0,0,0.15)"></div>
     <div style="position:relative;z-index:1">
       <div class="hero-emoji">🎁</div>
       <h1>伴手禮推薦</h1>
-      <div class="sub">沖繩必買清單</div>
+      <div class="sub">沖繩必買 18 項</div>
     </div>
   </div>
 
   <div class="content">
-    <div class="sec-title">🍠 食品類</div>
-    <div class="card">
-      <div class="tl-name" style="margin-bottom:6px">紅芋塔（紅芋タルト）</div>
-      <div class="tl-note">御菓子御殿招牌，香甜綿密，是沖繩最具代表性的伴手禮，常溫保存。</div>
+    <div class="sec-title">📖 參考來源</div>
+    <div style="font-size:14px;margin-bottom:16px;line-height:1.8">
+      <a href="https://bobbytravel.tw/okinawa-souvenirs/" target="_blank" style="color:#0077b6;font-weight:600;text-decoration:none">波比看世界：沖繩伴手禮完整攻略</a>
+      <span style="color:#ccc;margin:0 8px">|</span>
+      <a href="https://okinawa.letsgojp.com/archives/10742/" target="_blank" style="color:#0077b6;font-weight:600;text-decoration:none">樂吃購：沖繩必買23款伴手禮清單</a>
     </div>
-    <div class="card">
-      <div class="tl-name" style="margin-bottom:6px">Orion 啤酒 / 泡盛</div>
-      <div class="tl-note">沖繩在地啤酒，也可帶泡盛（琉球燒酒）。超市、便利商店均有售。</div>
+        <div id="cat-sweet" class="sec-title" style="margin-top:20px">🍬 甜食</div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="souvenir-tart.jpg" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">御菓子御殿紅芋塔</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">おかしごてん 紅芋タルト</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖繩最具代表性的伴手禮。紫心地瓜製成，純天然艷麗紫色，可常溫、冷藏或烤箱加熱食用。一日遊途中會經過，建議在那裡大量採購。</div>
+        <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:12px;background:#fff3e0;color:#e65100;border-radius:6px;padding:2px 8px;font-weight:600">🏪 御菓子御殿 恩納店</span><a href="https://www.google.com/maps/search/御菓子御殿+恩納店" target="_blank" style="font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">🗺️ Google Maps</a></div>
+      </div>
     </div>
-    <div class="card">
-      <div class="tl-name" style="margin-bottom:6px">雪鹽餅乾 / 雪鹽冰淇淋</div>
-      <div class="tl-note">宮古島雪鹽製成，鹹甜風味獨特，餅乾方便攜帶。</div>
-    </div>
-    <div class="card">
-      <div class="tl-name" style="margin-bottom:6px">ちんすこう（金楚糕）</div>
-      <div class="tl-note">沖繩傳統點心，酥脆甜口，口味多樣，份量大適合分送同事。</div>
-    </div>
-
-    <div class="sec-title">🧴 藥妝 / 生活</div>
-    <div class="card">
-      <div class="tl-name" style="margin-bottom:6px">海鹽護膚品</div>
-      <div class="tl-note">沖繩海鹽系列護手霜、肥皂，包裝精緻，適合送禮。</div>
-    </div>
-    <div class="card">
-      <div class="tl-name" style="margin-bottom:6px">防曬乳（藥妝店）</div>
-      <div class="tl-note">日本品牌防曬較台灣便宜，松本清、AINZ 均有販售。</div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225145_0_176f16.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">金楚糕</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">ちんすこう</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">琉球王國傳統點心，推薦新垣菓子店與南風堂，有雪鹽、牛奶等多種口味，份量大適合分送。</div>
+      </div>
     </div>
 
-    <div class="sec-title">🦁 紀念品</div>
-    <div class="card">
-      <div class="tl-name" style="margin-bottom:6px">シーサー（獅子）擺飾</div>
-      <div class="tl-note">沖繩守護神，大小款式多元，國際通紀念品店均有售。</div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225240_0_323f1e.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">沖繩限定零食組合</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">Kabaya・KitKat・Orion 豆菓子・トマト乾</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">包含 Kabaya 餅乾棒（旨鹽/黑糖/紅芋）、KitKat 紅芋限定款、Orion 花生豆菓子、梅鹽番茄乾等。</div>
+      </div>
     </div>
-    <div class="card">
-      <div class="tl-name" style="margin-bottom:6px">琉球玻璃</div>
-      <div class="tl-note">手工製作的彩色玻璃杯，色彩鮮豔，需注意攜帶時的包裝保護。</div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225218_0_d406ea.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">Fukugiya 福木屋年輪蛋糕</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">フクギヤ バウムクーヘン</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖繩首家年輪蛋糕專賣，20 圈年輪，有黑糖、蜂蜜、紅芋口味，包裝精緻適合送禮。</div>
+        <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:12px;background:#fff3e0;color:#e65100;border-radius:6px;padding:2px 8px;font-weight:600">🏪 フクギヤ 那霸店</span><a href="https://www.google.com/maps/search/フクギヤ+バウムクーヘン+那覇" target="_blank" style="font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">🗺️ Google Maps</a></div>
+      </div>
     </div>
-
-    <div class="sec-title">🛒 哪裡買</div>
-    <div class="card">
-      <ul class="remind-list">
-        <li><strong>國際通</strong> — 伴手禮店集中，DFS、御菓子御殿旗艦店均在此</li>
-        <li><strong>御菓子御殿（一日遊途中）</strong> — 紅芋塔最便宜，建議在此大量採購</li>
-        <li><strong>美國村</strong> — 雜貨、服飾、限定商品</li>
-        <li><strong>那霸機場免稅區</strong> — 出境前最後補貨，泡盛、酒類選擇多</li>
-      </ul>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://d1grca2t3zpuug.cloudfront.net/2024/05/664d81317a5a4-860x500.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">琉之月花生豆腐</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">琉之月 ジーマーミ豆腐</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖繩傳統名物，由花生加蕃薯粉製成，口感細滑帶彈性，帶淡雅花生香氣。可淋醬油當冷盤，也可搭配黑糖蜜當甜點，有原味、黑芝麻與黑糖三種口味。</div>
+        <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:12px;background:#fff3e0;color:#e65100;border-radius:6px;padding:2px 8px;font-weight:600">🏪 琉之月 各門市</span><a href="https://www.google.com/maps/search/琉之月+ジーマーミ豆腐+沖縄" target="_blank" style="font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">🗺️ Google Maps</a></div>
+      </div>
+    </div>
+    <div id="cat-savory" class="sec-title" style="margin-top:20px">🍿 鹹食</div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225232_0_b17eb3.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">南風堂辣味蝦餅</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">南風堂 辛子えび</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">薄脆餅乾蝦味濃郁，帶微辣滋味，獨立包裝方便食用，適合分送。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225210_0_8a89a4.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">Calbee+ 薯塊 & 香檬洋芋片</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">Calbee+ じゃがポックル・シークヮーサー</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖繩限定現炸薯條，有紅芋、海苔鹽、黑糖三色款；香檬洋芋片維C含量高，清爽酸香。</div>
+        <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:12px;background:#fff3e0;color:#e65100;border-radius:6px;padding:2px 8px;font-weight:600">🏪 Calbee+ 國際通り店</span><a href="https://www.google.com/maps/search/Calbee%2B+国際通り+那覇" target="_blank" style="font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">🗺️ Google Maps</a></div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://d1grca2t3zpuug.cloudfront.net/2024/05/664d82bbd6469-860x500.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">南風堂宮古牛脆片</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">南風堂 宮古牛チップス</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">使用宮古群島和牛「宮古牛」製成，牛肉風味濃厚，鬆脆口感令人停不下來，是愛吃鹹食的人必買的隱藏款。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://d1grca2t3zpuug.cloudfront.net/2024/05/664d858525af9-860x500.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">南風堂石垣島辣油脆片</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">南風堂 石垣島ラー油チップス</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">使用石垣島辣油製作，微辣中帶甘甜，爽口不膩，搭配沖繩啤酒一起享用更過癮，鹹食控必買。</div>
+      </div>
+    </div>
+    <div id="cat-drink" class="sec-title" style="margin-top:20px">🥤 飲料</div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225143_0_4359d8.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">Orion 啤酒</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">オリオンビール</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖繩在地啤酒，當地市占率超 50%。另有水果酒系列，超市、便利商店均有售。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225204_0_fff080.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">35 咖啡 & 扶桑花茶包</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">35コーヒー・ハイビスカスティー</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">石化珊瑚烘焙咖啡，製法獨特；扶桑花茶包滋味酸甜，兩款都是沖繩限定。</div>
+        <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:12px;background:#fff3e0;color:#e65100;border-radius:6px;padding:2px 8px;font-weight:600">🏪 35 Coffee</span><a href="https://www.google.com/maps/search/35コーヒー+沖縄" target="_blank" style="font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">🗺️ Google Maps</a></div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://d1grca2t3zpuug.cloudfront.net/2024/05/664d8369ea44d-860x500.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">沖繩香檬、金桔風味飲品</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">シークヮーサー・四季柑ドリンク</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖繩特產香檬（シークヮーサー）維C含量超越檸檬，清爽酸香；與四季柑混合後酸甜平衡，是消暑聖品，超市、便利商店均有瓶裝販售。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://d1grca2t3zpuug.cloudfront.net/2024/05/664d837b51352-860x500.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">沖繩香片茶（茉莉花茶）</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">さんぴん茶</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖繩傳統飲品，類似茉莉花茶，順口回甘帶淡淡花香，十分解渴。便利商店、自動販賣機均有販售，土產店也有茶包可帶回沖泡。</div>
+      </div>
+    </div>
+    <div id="cat-kitchen" class="sec-title" style="margin-top:20px">🧂 廚房</div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225138_0_513f12.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">沖繩限定海帶芽</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">沖縄もずく</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖泡式海帶芽，含四種海藻，膨脹率極高，連續獲世界品質大賞金獎。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225140_0_49d38f.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">邊銀食堂辣油</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">辺銀食堂 石垣島ラー油</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">秒殺夢幻神醬，石垣島辣椒、薑黃、大蒜製成。分一般、激辛、蒜油三款，超人氣必買。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225144_0_3baead.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">沖繩黑糖</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">沖縄 黒砂糖</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">享譽國際的天然名產，推薦波照間島與西表島黑糖，用途廣泛，甜度自然。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225155_0_9235bc.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">鹽屋雪鹽系列</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">塩屋 雪塩</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">宮古島雪鹽礦物質世界第一。另有棉花餅、鹽味白巧克力夾心餅等多樣產品。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225215_0_66abb1.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">沖繩泡麵</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">沖縄そば</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">獨特寬扁麵條，香甜湯頭，袋裝無肉塊可直接託運回台灣，方便攜帶。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225129_0_2b567c.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">泡盛辣椒油</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">泡盛唐辛子</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖繩蒸餾酒加辣椒醃漬，辛辣度強烈帶酒香，適合喜歡辣味的人。</div>
+      </div>
+    </div>
+    <div id="cat-cold" class="sec-title" style="margin-top:20px">🧊 要冰</div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://d1grca2t3zpuug.cloudfront.net/2024/05/664d81b9f275f-860x500.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">Blue Seal 沖繩限定冰淇淋</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">ブルーシール アイスクリーム</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖繩超人氣連鎖冰店，限定口味包括沖繩香檬、甘蔗、琉球貴族奶茶、田芋奶酪蛋糕等，分店遍布全島，旅途中隨時享用。</div>
+        <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:12px;background:#fff3e0;color:#e65100;border-radius:6px;padding:2px 8px;font-weight:600">🏪 Blue Seal 各門市</span><a href="https://www.google.com/maps/search/Blue+Seal+沖縄" target="_blank" style="font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">🗺️ Google Maps</a></div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://d1grca2t3zpuug.cloudfront.net/2024/05/664d82a9bb320-860x500.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">ROYCE' 石垣島黑糖巧克力</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">ROYCE' 石垣島 黒糖チョコレート</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">北海道巧克力名牌 ROYCE' 沖繩限定系列，使用沖繩縣產黑糖製作，質樸甘甜與香醇巧克力相得益彰，包裝充滿南國風情。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225201_0_b50a8b.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">Royce 石垣島鹽巧克力洋芋片</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">Royce' ポテトチップチョコレート</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">洋芋片沾附巧克力，鹹甜交織，需冷藏保存，買了要盡快食用。</div>
+      </div>
+    </div>
+    <div id="cat-goods" class="sec-title" style="margin-top:20px">🎀 紀念品</div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225147_0_3d2f90.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">沖繩風獅爺</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">シーサー</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖繩傳統避邪吉祥物，公獅吐晦氣、母獅緊咬財，大小款式多元，國際通均有售。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="souvenir-tshirt.jpg" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">沖繩限定衣服</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">Tシャツ</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">Orion、Blue Seal、HabuBox 品牌，特色圖案 T-shirt，美國村與國際通都有販售。</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://bobbytravel.tw/wp-content/uploads/2026/05/20260524225154_0_6481cf.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">美麗海水族館周邊</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">美ら海水族館グッズ</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">鯨鯊背包、限定扭蛋、海洋生物餐具、雪鹽汽水等，一日遊途中可順道採購。</div>
+        <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:12px;background:#fff3e0;color:#e65100;border-radius:6px;padding:2px 8px;font-weight:600">🏪 沖縄美ら海水族館 禮品店</span><a href="https://www.google.com/maps/search/沖縄美ら海水族館+ギフトショップ" target="_blank" style="font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">🗺️ Google Maps</a></div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="https://d1grca2t3zpuug.cloudfront.net/2024/05/664d843140d81-860x500.webp" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">琉球玻璃</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">琉球ガラス</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">沖繩傳統工藝，早期以廢棄玻璃為材料，發展至今成為一門藝術。酒杯、器皿、飾品等款式多元，繽紛色彩與晶瑩質地令人愛不釋手，國際通多間店家有售。</div>
+        <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:12px;background:#fff3e0;color:#e65100;border-radius:6px;padding:2px 8px;font-weight:600">🏪 琉球ガラス村 等工藝店</span><a href="https://www.google.com/maps/search/琉球ガラス+国際通り+那覇" target="_blank" style="font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">🗺️ Google Maps</a></div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:12px">
+      <img src="souvenir-cup.jpg" onclick="openLightbox(this.src)" style="cursor:zoom-in;width:100%;height:160px;object-fit:cover;display:block">
+      <div style="padding:12px 14px">
+        <div style="font-size:15px;font-weight:800;margin-bottom:2px">沖繩限定變色杯</div>
+        <div style="font-size:14px;color:#888;margin-bottom:6px">沖縄限定 カラーチェンジカップ</div>
+        <div style="font-size:14px;color:#555;line-height:1.6">加入冷飲後圖案從白色變色，浮現沖繩海洋、風獅爺等圖樣，近期超人氣話題商品。國際通り伴手禮店均有販售，款式多元。</div>
+        <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:12px;background:#fff3e0;color:#e65100;border-radius:6px;padding:2px 8px;font-weight:600">🏪 國際通り伴手禮店</span><a href="https://www.google.com/maps/search/国際通り+那覇+お土産" target="_blank" style="font-size:14px;color:#0077b6;font-weight:600;text-decoration:none">🗺️ Google Maps</a></div>
+      </div>
     </div>
   </div>
+</div>
+
+
+<div id="cat-fab">
+  <button class="cat-pill" onclick="jumpTo('cat-sweet')">🍬 甜食</button>
+  <button class="cat-pill" onclick="jumpTo('cat-savory')">🍿 鹹食</button>
+  <button class="cat-pill" onclick="jumpTo('cat-drink')">🥤 飲料</button>
+  <button class="cat-pill" onclick="jumpTo('cat-kitchen')">🧂 廚房</button>
+  <button class="cat-pill" onclick="jumpTo('cat-cold')">🧊 要冰</button>
+  <button class="cat-pill" onclick="jumpTo('cat-goods')">🎀 紀念品</button>
+</div>
+
+<div id="lightbox" onclick="closeLightbox()">
+  <span id="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="">
 </div>
 
 </body>
